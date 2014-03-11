@@ -3,6 +3,9 @@ import time
 import requests
 import re
 
+userName=''
+userPWD=''
+
 def smbox(s,r):
     s.get('http://bbs.9gal.com/'+findBanner.search(r.text).group(1))
     print('点广告','http://bbs.9gal.com/'+findBanner.search(r.text).group(1))
@@ -23,8 +26,8 @@ if __name__ == '__main__':
     'lgt': '1',
     'hideid': '1',
     'cktime': '31536000',
-    'pwuser': 'XXXXX',
-    'pwpwd': 'XXXXX'
+    'pwuser': userName,
+    'pwpwd': userPWD
     }
     s1=requests.session()
     s1.post('http://bbs.9gal.com/login.php?', data=parameters)
