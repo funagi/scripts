@@ -7,6 +7,7 @@ import html.parser
 from bs4 import BeautifulSoup
 
 
+#提取页面中图片链接
 def GetPage(Url,number=''):
     PrintInfo = "GetPage:"+ Url
     print (PrintInfo.center(60, '*'))
@@ -19,7 +20,7 @@ def GetPage(Url,number=''):
     FindResName = re.compile(r'<h2>『(.*)』の検索結果</h2>')
     FindPicName = re.compile(r'<img alt="(.*)" src=')
     FindPicName2 = re.compile(r"<img alt='(.*)' src=")
-    FindPicUrl = re.compile(r'src="(.*?)(\d+)(.*)" width="200"')
+    FindPicUrl = re.compile(r'src="(.*?)(\d+)(.*)" width=')
     ResName = FindResName.search(str(ResultName)).group(1).replace('?','').replace('!','')
     PicName = []
     PicUrl = []
@@ -51,7 +52,7 @@ def GetPage(Url,number=''):
         print (PrintInfo.center(60, '*'))
 
 
-
+#下图片
 def GetPicture(PicName, PicUrl, FilePath):
     print ("GetPicture:", PicUrl)
     picture = urlOpener.open(PicUrl)
@@ -77,4 +78,3 @@ if __name__ == '__main__':
     urlOpener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookiejar), urllib.request.HTTPHandler())
     urlOpener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0')]
     main()
-
