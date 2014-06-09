@@ -41,16 +41,18 @@ def main():
             time.sleep(5)
 
     while True:
-        findUser = re.compile(r'上次登录.*">(.*)</a>')
-        findTime = re.compile(r'<span style="color:#339900">(.*)</span><br />')
-        findKFB = re.compile(r'<span style="color:#339900">(.*)</span>')
+        findUser = re.compile(r'profile\.php\?action=.*?>(.*)</a>')
+        findTime = re.compile(r'(在线时间\d*分钟)')
+        findKFB = re.compile(r'(所持KFB\d*)</span>')
+        findSM=re.compile(r'神秘盒子</a>(.*?)</div>')
+        findCard=re.compile(r'道具卡片</a>(.*?)</div>')
         try:
             print(time.strftime('%Y-%m-%d %H:%M:%S'))
             r = s1.get('http://bbs.9gal.com/index.php', timeout=10, headers=headers)
             print(findUser.search(r.text).group(1), findTime.search(r.text).group(1), findKFB.search(r.text).group(1))
-            if '现在可以免费抽取奖励' in r.text:
+            if '现在可以抽取' in findSM.search(r.text).group(1)::
                 smbox(s1, r)
-            if '现在可以抽取奖励' in r.text:
+            if '现在可以抽取' in findCard.search(r.text).group(1)::
                 card(s1)
             print('sleep 120')
             time.sleep(120)
