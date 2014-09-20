@@ -7,6 +7,11 @@
 ##9gal
 9gal刷在线时间 点盒子 抽卡片
 
+使用说明:
+
+修改9gal.py中`test=User('account', 'password')`为真实账户密码
+可添加多个账户
+
 ##move
 减少文件目录层数
 
