@@ -28,12 +28,12 @@ class User:
 
     def smbox(self):
         r = self.session.get('http://bbs.9gal.com/index.php', timeout=10, headers=self.headers)
-        findBanner = re.compile(r'<a href="(diy_ad_move.php?.*)" target="_blank"')
+        findBanner = re.compile(r'<a href="(diy_ad_move.php?.*?)" target="_blank"')
         findSMBox = re.compile(r'.*<td><a href="(kf_smbox.*)">.{1,3}</a></td>.*')
-        self.s.get('http://bbs.9gal.com/' + findBanner.search(r.text).group(1), headers=self.headers)
+        self.session.get('http://bbs.9gal.com/' + findBanner.search(r.text).group(1), headers=self.headers)
         print('点广告', 'http://bbs.9gal.com/' + findBanner.search(r.text).group(1))
-        r = self.s.get('http://bbs.9gal.com/kf_smbox.php', headers=self.headers)
-        self.s.get('http://bbs.9gal.com/' + findSMBox.search(r.text).group(1), headers=self.headers)
+        r = self.session.get('http://bbs.9gal.com/kf_smbox.php', headers=self.headers)
+        self.session.get('http://bbs.9gal.com/' + findSMBox.search(r.text).group(1), headers=self.headers)
         print('抽取盒子', 'http://bbs.9gal.com/' + findSMBox.search(r.text).group(1))
 
     def card(self):
