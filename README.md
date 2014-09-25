@@ -9,8 +9,8 @@
 
 使用说明:
 
-修改9gal.py中`test=User('account', 'password')`为真实账户密码
-可添加多个账户
+修改9gal.py中`login.add_account('user','password')`为真实账户密码
+去掉`#`的注释 可添加多个账户
 
 ##move
 减少文件目录层数

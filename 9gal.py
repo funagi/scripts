@@ -1,4 +1,6 @@
 from user import User
 
-test=User('account', 'password')
-test.start()
+login=User()
+login.add_account('user','password')
+#login.add_account(''user','password')
+login.start()
