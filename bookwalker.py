@@ -18,9 +18,9 @@ def GetPage(Url,number=''):
     NextPage = parser.select('p.pager-next a[href]')
 
     FindResName = re.compile(r'<h2>『(.*)』の検索結果</h2>')
-    FindPicName = re.compile(r'<img alt="(.*)" src=')
-    FindPicName2 = re.compile(r"<img alt='(.*)' src=")
-    FindPicUrl = re.compile(r'src="(.*?)(\d+)(.*)" width=')
+    FindPicName = re.compile(r'<img alt="(.*)" class="lazy"')
+    FindPicName2 = re.compile(r'<img alt=\'(.*)" class="lazy"')
+    FindPicUrl = re.compile(r'data-original="(.*?)(\d+)(.*)" src="')
     ResName = FindResName.search(str(ResultName)).group(1).replace('?','').replace('!','')
     PicName = []
     PicUrl = []
