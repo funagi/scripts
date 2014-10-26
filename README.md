@@ -4,13 +4,14 @@
 ##pixivDatabase
 抓取pixiv数据
 
-##9gal
-9gal刷在线时间 点盒子 抽卡片
+##9moe
+苍雪刷在线时间 点盒子 抽卡片
 
 使用说明:
 
 修改9gal.py中`login.add_account('user','password')`为真实账户密码
-去掉`#`的注释 可添加多个账户
+去掉`login.disable_card()`的`#`注释 可禁止抽取卡片
+
 
 ##move
 减少文件目录层数
