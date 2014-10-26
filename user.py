@@ -10,6 +10,7 @@ class User:
         self.accounts = []
         self.sessions = []
         self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0'}
+        self.card_enable = True
 
     def add_account(self, user, password):
         self.accounts.append((user, password))
@@ -29,6 +30,9 @@ class User:
                 s = requests.session()
                 s.post('http://bbs.9moe.com/login.php?', data=params, headers=self.headers)
                 self.sessions.append(s)
+
+    def disable_card(self):
+        self.card_enable = False
 
     def smbox(self, session):
         r = session.get('http://bbs.9moe.com/index.php', timeout=10, headers=self.headers)
@@ -59,13 +63,12 @@ class User:
             try:
                 for session in self.sessions:
                     self.print_info(session)
-
                     r = session.get('http://bbs.9moe.com/index.php', timeout=10, headers=self.headers)
                     findSM = re.compile(r'神秘盒子</a>(.*?)</div>')
                     findCard = re.compile(r'道具卡片</a>(.*?)</div>')
                     if '现在可以抽取' in findSM.search(r.text).group(1):
                         self.smbox(session)
-                    if '现在可以抽取' in findCard.search(r.text).group(1):
+                    if '现在可以抽取' in findCard.search(r.text).group(1) and self.card_enable:
                         self.card(session)
                 print('sleep 120')
                 time.sleep(120)
