@@ -27,27 +27,27 @@ class User:
                 params['pwuser'] = account[0]
                 params['pwpwd'] = account[1]
                 s = requests.session()
-                s.post('http://bbs.9gal.com/login.php?', data=params, headers=self.headers)
+                s.post('http://bbs.9moe.com/login.php?', data=params, headers=self.headers)
                 self.sessions.append(s)
 
     def smbox(self, session):
-        r = session.get('http://bbs.9gal.com/index.php', timeout=10, headers=self.headers)
+        r = session.get('http://bbs.9moe.com/index.php', timeout=10, headers=self.headers)
         findBanner = re.compile(r'<a href="(diy_ad_move.php?.*?)" target="_blank"')
         findSMBox = re.compile(r'.*<td><a href="(kf_smbox.*)">.{1,3}</a></td>.*')
-        session.get('http://bbs.9gal.com/' + findBanner.search(r.text).group(1), headers=self.headers)
-        print('点广告', 'http://bbs.9gal.com/' + findBanner.search(r.text).group(1))
-        r = session.get('http://bbs.9gal.com/kf_smbox.php', headers=self.headers)
-        session.get('http://bbs.9gal.com/' + findSMBox.search(r.text).group(1), headers=self.headers)
-        print('抽取盒子', 'http://bbs.9gal.com/' + findSMBox.search(r.text).group(1))
+        session.get('http://bbs.9moe.com/' + findBanner.search(r.text).group(1), headers=self.headers)
+        print('点广告', 'http://bbs.9moe.com/' + findBanner.search(r.text).group(1))
+        r = session.get('http://bbs.9moe.com/kf_smbox.php', headers=self.headers)
+        session.get('http://bbs.9moe.com/' + findSMBox.search(r.text).group(1), headers=self.headers)
+        print('抽取盒子', 'http://bbs.9moe.com/' + findSMBox.search(r.text).group(1))
 
     def card(self, session):
-        session.post('http://bbs.9gal.com/kf_fw_ig_one.php', data={'one': '1'}, headers=self.headers)
+        session.post('http://bbs.9moe.com/kf_fw_ig_one.php', data={'one': '1'}, headers=self.headers)
         print('抽取卡片')
 
     def print_info(self, session):
         print(time.strftime('%Y-%m-%d %H:%M:%S'))
 
-        r = session.get('http://bbs.9gal.com/index.php', timeout=10, headers=self.headers)
+        r = session.get('http://bbs.9moe.com/index.php', timeout=10, headers=self.headers)
         user = re.search(r'profile\.php\?action=.*?>(.*)</a>', r.text).group(1)
         zaixian = re.search(r'="color:#339900">(.*)</span> 分钟', r.text).group(1).strip()
         KFB = re.search(r'="color:#339900">(.*)</span> KFB', r.text).group(1).strip()
@@ -60,7 +60,7 @@ class User:
                 for session in self.sessions:
                     self.print_info(session)
 
-                    r = session.get('http://bbs.9gal.com/index.php', timeout=10, headers=self.headers)
+                    r = session.get('http://bbs.9moe.com/index.php', timeout=10, headers=self.headers)
                     findSM = re.compile(r'神秘盒子</a>(.*?)</div>')
                     findCard = re.compile(r'道具卡片</a>(.*?)</div>')
                     if '现在可以抽取' in findSM.search(r.text).group(1):
