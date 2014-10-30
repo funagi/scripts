@@ -2,6 +2,7 @@
 
 import asyncio
 import csv
+from collections import deque
 import io
 
 import aiohttp
@@ -14,7 +15,7 @@ import settings
 
 @asyncio.coroutine
 def get(*args, **kwargs):
-    response = yield from aiohttp.request('GET', *args, **kwargs)
+    response = yield from aiohttp.request('get', *args, **kwargs)
     return (yield from response.text())
 
 
@@ -48,7 +49,7 @@ def parser(page):
 @asyncio.coroutine
 def get_illust(url):
     with (yield from SEM):
-        page = yield from get(url, compress=True)
+        page = yield from get(url, compress=True, connector=CONN)
     if page:
         result = parser(page)
         WHOLERESULT.append(result)
@@ -94,12 +95,13 @@ def main():
             print('Completed')
             break
 
-        WHOLERESULT = []
+        WHOLERESULT = deque()
         start += cache
 
 
 WHOLERESULT = []
 SEM = asyncio.Semaphore(settings.MAXCONNECTION)
+CONN = aiohttp.TCPConnector()
 
 if __name__ == '__main__':
     connect_db()

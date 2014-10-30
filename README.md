@@ -32,3 +32,5 @@ after:
 
 ## PixivCrawler
 aiohttp抓取pixiv插画信息
+
+使用时在setting中填写PHPSESSID
