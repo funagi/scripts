@@ -1,7 +1,0 @@
-from user import User
-
-login=User()
-login.add_account('user','password')
-#login.add_account(''user','password')
-#login.disable_card()
-login.start()
